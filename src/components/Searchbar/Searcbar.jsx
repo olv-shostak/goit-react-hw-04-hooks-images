@@ -1,33 +1,31 @@
-import { Component } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoSearch } from "react-icons/go";
 
-class Searchbar extends Component {
-  state = {
-    value: "",
+function Searchbar({ onSubmit }) {
+
+  const [value, setValue] = useState('');
+
+  const handleTextChange = (e) => {
+    setValue(e.currentTarget.value.toLowerCase());
   };
 
-  handleTextChange = (e) => {
-    this.setState({ value: e.currentTarget.value.toLowerCase() });
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (this.state.value.trim() === "") {
+    if (value.trim() === "") {
       return toast.warning("Please, enter a request");
     }
-    this.props.onSubmit(this.state.value);
-    this.setState({ value: "" });
+    onSubmit(value);
+    setValue('');
   };
 
-  render() {
     return (
       <header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.handleSubmit}>
+        <form className="SearchForm" onSubmit={handleSubmit}>
           <button type="submit" className="SearchForm-button">
-            <GoSearch  width="50"/>
+            <GoSearch />
           </button>
 
           <input
@@ -36,13 +34,12 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            onChange={this.handleTextChange}
-            value={this.state.value}
+            onChange={handleTextChange}
+            value={value}
           />
         </form>
       </header>
     );
   }
-}
 
 export default Searchbar;

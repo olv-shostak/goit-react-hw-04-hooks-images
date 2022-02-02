@@ -5,8 +5,8 @@ const Loader = () => {
     return (
       <div className="Loader">
         <BallTriangle
-          heigth="50"
-          width="50"
+          heigth="100"
+          width="100"
           color="#080cfd"
           arialLabel="loading-indicator"
         />
